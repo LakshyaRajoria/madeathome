@@ -8,46 +8,58 @@ The content below is an example project proposal / requirements document. Replac
 
 (__TODO__: a brief one or two paragraph, high-level description of your project)
 
-Remembering what to buy at the grocery store is waaaaay too difficult. Also, shopping for groceries when you're hungry leads to regrettable purchases. Sooo... that's where Shoppy Shoperson comes in!
 
-Shoppy Shoperson is a web app that will allow users to keep track of multiple grocery lists. Users can register and login. Once they're logged in, they can create or view their grocery list. For every list that they have, they can add items to the list or cross off items.
+Bored of the same rotation of 5 fast-food places? College student? Aching for meals that taste like home? That’s where Made @ Home comes in. 
+
+Made @ Home is a web app that will allow users to pick the cuisine they would like to order food in, but the twist is that rather than it being prepared at a restaurant, ghost kitchen or some other commoditized location, it will be prepared by home-cooks! Find the delicacies you can only get at your home away from home. Select from a wide array of homecooks that specialize in that flavor you love but can’t find in restaurant. 
+
+Tjhe web app will incorporate review system for the homecooks, optionality for customers to describe exactly the recipes they would like made by homecooks and give homecooks a platform to grow others’ appreciation of their skills in a cost-effective manner! 
 
 
 ## Data Model
 
 (__TODO__: a description of your application's data and their relationships to each other) 
 
-The application will store Users, Lists and Items
-
-* users can have multiple lists (via references)
-* each list can have multiple items (by embedding)
+The application will store Users, Cart and Menu
 
 (__TODO__: sample documents)
 
-An Example User:
+As can be seen some of the following models are connected by the username, homecook_id etc. 
+
+An Example User: Added a record for specifying the user will have a normal customer's fuctionalities and/or a homecook's functionalities (for example, which can include seeimgg orders placed by people). 
 
 ```javascript
 {
   username: "shannonshopper",
-  hash: // a password hash,
-  lists: // an array of references to List documents
+  password: // a password hash,
+	userRoles: ['Normal', 'homecook']
 }
 ```
 
-An Example List with Embedded Items:
+An Example User's order (their cart): 
 
 ```javascript
 {
-  user: // a reference to a User object
-  name: "Breakfast foods",
-  items: [
-    { name: "pancakes", quantity: "9876", checked: false},
-    { name: "ramen", quantity: "2", checked: true},
-  ],
-  createdAt: // timestamp
+	username: "shannonshopper" // connecting a user and their order 
+
+  homeCook_id: [UUIDs] // can be like a UUID not sure, some identification to map the homecook they are ordering from. Array because maybe they order from multiple locations 
+
+	foodItems: [ids] // each food item on a homecook's menu can be connected to an id that we store in this array. this will likely be a 2D array to account for ordering from mutliple homecooks and as such multiple menus. 
 }
 ```
+An Example Menu: Storing the things that a Homecook has on their menu in a database. 
+```javascript
+{
+  homeCook_id: "shannonshopper",
 
+	// in case a homecook is able to cater for a wide variety of cusines
+  menu: {'italian': [('pizza', $10), ('pasta', $10)], {'indian': [('paneer butter masala', $10), ('naan', $10)]}  
+
+// if the homeCook takes reciepes/directins from the user then this record will be used to store that. 
+	userCreation: {"name": Paella, "ingredients": '1 Cup Water\n 1 Cup Tomato', "Description": "heat pan for 10 minutes, add the tomatoes..."}
+}
+
+```
 
 ## [Link to Commented First Draft Schema](db.mjs) 
 
@@ -57,51 +69,37 @@ An Example List with Embedded Items:
 
 (__TODO__: wireframes for all of the pages on your site; they can be as simple as photos of drawings or you can use a tool like Balsamiq, Omnigraffle, etc.)
 
-/list/create - page for creating a new shopping list
+Web Pages 1 
 
-![list create](documentation/list-create.png)
+![list create](documentation/WebPage1.png)
 
-/list - page for showing all shopping lists
+Web Pages 2 
+![list create](documentation/WebPage2.png) 
 
-![list](documentation/list.png)
-
-/list/slug - page for showing specific shopping list
-
-![list](documentation/list-slug.png)
 
 ## Site map
 
 (__TODO__: draw out a site map that shows how pages are related to each other)
 
-Here's a [complex example from wikipedia](https://upload.wikimedia.org/wikipedia/commons/2/20/Sitemap_google.jpg), but you can create one without the screenshots, drop shadows, etc. ... just names of pages and where they flow to.
+The Home Page will have links to that lead to pages like Getting License, which will detail to a user on how to get the proper certification to sell food from home and provide them with any relevant links. Other pages linked to from the homepage include My Shop, which will be specifically for the home cook to accesss so that they can see the orders people have placed, mark them as prepared, check their delivery status, check the history of their orders, edit their menu etc. there will also be another link on the Home Page that is Explore. This will allow you to see a page which has information on different homecooks, the reviews people have put of them, what they specialize in making, along with filtering functions based on cuisine, prices, location, reviews etc. On My Shop there will also be the Explore page again in case they want to order something themselves. 
 
 ## User Stories or Use Cases
 
 (__TODO__: write out how your application will be used through [user stories](http://en.wikipedia.org/wiki/User_story#Format) and / or [use cases](https://en.wikipedia.org/wiki/Use_case))
 
-1. as non-registered user, I can register a new account with the site
-2. as a user, I can log in to the site
-3. as a user, I can create a new grocery list
-4. as a user, I can view all of the grocery lists I've created in a single list
-5. as a user, I can add items to an existing grocery list
-6. as a user, I can cross off items in an existing grocery list
+1. as non-registered user, I can register a new account with the site and even specify if I want to be a home cook on the platform too (you will be able to create a home cook credential later as well).  
+2. as a non-registered user, I can still explore and order food from the website. 
+3. as a home cook, I can have My Store, which will allow me to make a menu, take orders from people, track them, and do bookkeeping. 
+4. As a registered user, I can create a home cook credential.
+5. As a registered user, I can see a list of all my past orders 
+
 
 ## Research Topics
 
 (__TODO__: the research topics that you're planning on working on along with their point values... and the total points of research topics listed)
 
-* (5 points) Integrate user authentication
-    * I'm going to be using passport for user authentication
-    * And account has been made for testing; I'll email you the password
-    * see <code>cs.nyu.edu/~jversoza/ait-final/register</code> for register page
-    * see <code>cs.nyu.edu/~jversoza/ait-final/login</code> for login page
-* (4 points) Perform client side form validation using a JavaScript library
-    * see <code>cs.nyu.edu/~jversoza/ait-final/my-form</code>
-    * if you put in a number that's greater than 5, an error message will appear in the dom
-* (5 points) vue.js
-    * used vue.js as the frontend framework; it's a challenging library to learn, so I've assigned it 5 points
+I am planning on using React.js (6 points) as my frontend framework which is a JavaScript library for building interactive and dynamic user interfaces (UIs). I am planning on using this because I have some experience working with it, and I like the component-based architecture that it has. This allows me to have a self-contained reusable piece of code on how different parts of the user interface should appear and behave. I am also planning on using client side form validation (3 points) using custom JavaScript or JavaScript *library*. Specifically, I might use Formik which is designed to work well with React forms like in the display of errors or custom validation logic. Finally, I am thinking of using Bootstrap (2 points) to have a defined theme for my website across my webpages. This will allow my webpage to be more unique and friendly to users. 
 
-10 points total out of 8 required points (___TODO__: addtional points will __not__ count for extra credit)
 
 
 ## [Link to Initial Main Project File](app.mjs) 
