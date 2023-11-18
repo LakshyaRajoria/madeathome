@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom';
+
 
 const ShowMenu = () => {
+
     const [items, setItem] = useState([]); 
 
     useEffect(() => {
@@ -20,7 +23,9 @@ const ShowMenu = () => {
         <div className='p-4'>
             <div className='flex justify-between items-center'>
                 <h1 className='text-3xl my-8'>Menu</h1>
-                <h3><a href='/menu'>Create New Item on Menu </a></h3>
+
+                
+                <h3><Link to="/menu">Create New Item on Menu</Link></h3>
             </div>
             <table className='w-full border-separate border-spacing-2'>
                 <thead>
