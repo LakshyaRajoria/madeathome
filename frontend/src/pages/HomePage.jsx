@@ -3,6 +3,9 @@ import indianCuisine from '../images/indian.jpg';
 import chineseCuisine from '../images/chinese.jpg';
 import italianCuisine from '../images/italian.jpg';
 import thaiCuisine from '../images/thai.jpg';
+import northIndian from '../images/northIndian.jpg';
+import southIndian from '../images/southIndian.jpg';
+import koreanCuisine from '../images/korean.jpg';
 import { Link } from 'react-router-dom';
 
 
@@ -15,9 +18,9 @@ const HomePage = () => {
                     <div className="flex space-x-4">
                         
                         <li>
-                            <a href="#store-section" className="inline-block bg-white text-gray-800 font-semibold py-3 px-6 rounded-full hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 shadow-lg">
+                            <Link to="/create-shop" className="inline-block bg-white text-gray-800 font-semibold py-3 px-6 rounded-full hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 shadow-lg">
                                 Create Store
-                            </a>
+                            </Link>
                         </li>
                         <li>
                             <a href="#home-cooks-gallery" className="inline-block bg-white text-gray-800 font-semibold py-3 px-6 rounded-full hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 shadow-lg">
@@ -59,7 +62,7 @@ const HomePage = () => {
                 <div className="grid grid-cols-3 gap-4">
                     {/* Repeat for each home cook, query from database */}
                     <div className="bg-white p-4 shadow-md rounded-lg">
-                        <img className="w-full" src="/path-to-homecook-image.jpg" alt="Shop Image" />
+                        <img className="w-full" src={southIndian}  alt="North Indian" />
 
                         <div className="px-6 py-4">
                             <div className="font-bold text-xl mb-2">Lakshya's Kitchen</div>
@@ -73,7 +76,7 @@ const HomePage = () => {
                         </div>
 
                         <div className="px-6 py-4">
-                             <Link to="/placeholder" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                             <Link to="/menu-details" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                                 Visit Shop
                             </Link>
 
@@ -90,8 +93,7 @@ const HomePage = () => {
                     </div>
                     {/* ... */}
                     <div className="bg-white p-4 shadow-md rounded-lg">
-                        <img className="w-full" src="/path-to-homecook-image.jpg" alt="Shop Image" />
-
+                        <img className="w-full" src={northIndian}  alt="North Indian" />
                         <div className="px-6 py-4">
                             <div className="font-bold text-xl mb-2">Lakshya's Kitchen</div>
                             <p className="text-gray-700 text-base">
@@ -104,7 +106,7 @@ const HomePage = () => {
                         </div>
 
                         <div className="px-6 py-4">
-                            <Link to="/placeholder" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                            <Link to="/menu-details" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                                 Visit Shop
                             </Link>
 
@@ -121,7 +123,8 @@ const HomePage = () => {
                     </div>
                     {/* ... */}
                     <div className="bg-white p-4 shadow-md rounded-lg">
-                        <img className="w-full" src="/path-to-homecook-image.jpg" alt="Shop Image" />
+                    
+                        <img className="w-full" src={koreanCuisine}  alt="Korea" />
 
                         <div className="px-6 py-4">
                             <div className="font-bold text-xl mb-2">Lakshya's Kitchen</div>
@@ -135,7 +138,7 @@ const HomePage = () => {
                         </div>
 
                         <div className="px-6 py-4">
-                            <Link to="/placeholder" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                            <Link to="/menu-details" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                                 Visit Shop
                             </Link>
 

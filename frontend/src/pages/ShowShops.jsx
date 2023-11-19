@@ -3,15 +3,15 @@ import axios from 'axios'
 import { Link } from 'react-router-dom';
 
 
-const ShowMenu = () => {
+const ShowShops = () => {
 
-    const [items, setItem] = useState([]); 
+    const [shops, setShops] = useState([]); 
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/menu`)
+        axios.get(`http://localhost:3000/myShopDetails`)
         .then((response) => {
-            setItem(response.data.data);
-            console.log("hmmst does this work")
+            setShops(response.data.data);
+            console.log("hmmst does this work to get my Shop Details")
             console.log(response.data.data);
         })
         .catch((error) => {
@@ -23,51 +23,50 @@ const ShowMenu = () => {
         
         <div className='p-4'>
             <div className='flex justify-between items-center'>
-                <h1 className='text-3xl my-8'>Menu</h1>
+                <h1 className='text-3xl my-8'>Existing Shops</h1>
 
-                <Link to="/create-menu" className="inline-block bg-yellow-100 text-gray-800 font-semibold py-3 px-6 rounded-full hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 shadow-lg">
-                    Create New Item on Menu
-                </Link>
+                
+
             </div>
             <table className='w-full border-separate border-spacing-2'>
                 <thead>
                     <tr>
                         <th className='border border-slate-600 rounded-md'>No</th>
-                        <th className='border border-slate-600 rounded-md'>Cuisine</th>
-                        <th className='border border-slate-600 rounded-md'>Category</th>
-                        <th className='border border-slate-600 rounded-md'>Name</th>
+                        <th className='border border-slate-600 rounded-md'>Username</th>
+                        <th className='border border-slate-600 rounded-md'>Shop Name</th>
                         <th className='border border-slate-600 rounded-md'>Description</th>
-                        <th className='border border-slate-600 rounded-md'>Price</th>
+                        <th className='border border-slate-600 rounded-md'>Email</th>
+                        <th className='border border-slate-600 rounded-md'>Phone Number</th>
 
                     </tr>
                 </thead>
 
                 <tbody>
-                    {items.map((item,index) => (
-                        <tr key={items._id} className='h-8'>
+                    {shops.map((shop,index) => (
+                        <tr key={shops._id} className='h-8'>
                             <td className='border border-slate-700 rounded-md text-center'> 
                                 {index+1}
                             </td>
 
                             <td className='border border-slate-700 rounded-md text-center'> 
-                                {item.cuisine}
+                                {shop.username}
                             </td>
 
 
                             <td className='border border-slate-700 rounded-md text-center'> 
-                                {item.category}
+                                {shop.shopName}
                             </td>
 
                             <td className='border border-slate-700 rounded-md text-center'> 
-                                {item.name}
+                                {shop.description}
                             </td>
 
                             <td className='border border-slate-700 rounded-md text-center'> 
-                                {item.description}
+                                {shop.email}
                             </td>
 
                             <td className='border border-slate-700 rounded-md text-center'> 
-                                {item.price}
+                                {shop.phone}
                             </td>
                         </tr>
                     ))}
@@ -80,4 +79,4 @@ const ShowMenu = () => {
 
 }
 
-export default ShowMenu
+export default ShowShops

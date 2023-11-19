@@ -2,6 +2,7 @@ import express from 'express';
 import { PORT, mongoDBURL } from './config.js'; 
 import mongoose from 'mongoose';
 import { MenuItem } from './models/menuItems.js'; 
+import { shopModel } from './models/shopModel.js'; 
 import cors from 'cors';
 // import path from 'path'
 // import { fileURLToPath } from 'url';
@@ -62,6 +63,51 @@ app.get('/menu', async (req, res) => {
         return res.status(200).json({
             count: itemsFromMenu.length,
             data: itemsFromMenu
+        });
+
+    } catch(e) {
+        console.log(e.message); 
+        res.status(500).send({message: e.message}); 
+    }
+})
+
+
+app.post('/shopCreation', async (req, res) => {
+    try {
+        if (
+        !req.body.username || 
+        !req.body.shopName  || 
+        !req.body.description     ||
+        !req.body.email ||
+        !req.body.phone 
+        ) {
+            return res.status(400).send({
+                message: 'Send all the the required fields',
+            });
+        }
+        const shopItem = {
+            username: req.body.username,
+            shopName: req.body.shopName,
+            description: req.body.description,
+            email: req.body.email,
+            phone: req.body.phone
+        };
+        const newShop = await shopModel.create(shopItem); 
+        return res.status(201).send(newShop);
+
+        } catch (e) {
+            console.log(e.message); 
+            res.status(500).send({message: e.message}); 
+    }
+})
+
+
+app.get('/myShopDetails', async (req, res) => {
+    try {
+        const itemsFromShops = await shopModel.find({});
+        return res.status(200).json({
+            count: itemsFromShops.length,
+            data: itemsFromShops
         });
 
     } catch(e) {
