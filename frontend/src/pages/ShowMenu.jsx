@@ -20,12 +20,14 @@ const ShowMenu = () => {
     }, [])
 
     return (
+        
         <div className='p-4'>
             <div className='flex justify-between items-center'>
                 <h1 className='text-3xl my-8'>Menu</h1>
 
                 
                 <h3><Link to="/menu">Create New Item on Menu</Link></h3>
+                <h4 className='bg-blue-500'>Hello World!</h4>
             </div>
             <table className='w-full border-separate border-spacing-2'>
                 <thead>
@@ -72,6 +74,7 @@ const ShowMenu = () => {
                 </tbody>
             </table>
         </div>
+        
 
     )
 
