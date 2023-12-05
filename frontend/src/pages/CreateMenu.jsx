@@ -44,7 +44,7 @@ const CreateMenu = () => {
             description,
             price
         }
-        axios.post(`http://localhost:3000/menu/${shopName}`, data, { withCredentials: true }) 
+        axios.post(`https://madeathome-backend2.onrender.com/menu/${shopName}`, data, { withCredentials: true }) 
         .then(() => {
             navigate('/');
         })
