@@ -19,7 +19,7 @@ const CreateMenu = () => {
 
     const handleLoad = async () => {
         try {
-            const auth = await axios.get('http://localhost:3000/authenticate', { withCredentials: true });
+            const auth = await axios.get('https://madeathome-backend2.onrender.com/authenticate', { withCredentials: true });
             console.log("we are on create menu page")
             if (auth.data.msg === 'authenticated') {
                 console.log('authenticated');
