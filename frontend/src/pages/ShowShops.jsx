@@ -16,7 +16,7 @@ const ShowShops = () => {
 
     const handleLoad = async () => {
         try {
-            const auth = await axios.get('http://localhost:3000/authenticate', { withCredentials: true });
+            const auth = await axios.get('https://madeathome-backend2.onrender.com/authenticate', { withCredentials: true });
             console.log("we are on the see existing shops page")
             if (auth.data.msg === 'authenticated') {
                 console.log('authenticated');
@@ -34,7 +34,7 @@ const ShowShops = () => {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/myShopDetails`)
+        axios.get(`https://madeathome-backend2.onrender.com/myShopDetails`)
         .then((response) => {
             setShops(response.data.data);
             console.log("hmmst does this work to get my Shop Details")
