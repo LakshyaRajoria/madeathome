@@ -27,6 +27,7 @@ const CreateShop = () => {
                 showAlertAndRedirect("You can't access this page without logging in ", "/");
             }
         } catch (error) {
+            
             console.error('Error checking authentication', error);
         }
     };
@@ -46,8 +47,18 @@ const CreateShop = () => {
         .then(() => {
             navigate('/');
         })
-        .catch((e) => {
-            alert('An error has happened. Check to make sure you are not making more than one store'); 
+        .catch((error) => {
+            if (error.response && error.response.data) {
+                // Check if it's a validation error
+                if (error.response.status === 400 && error.response.data.message) {
+                    alert(error.response.data.message);
+                } else {
+                    alert('An error has occurred. Please try again later.');
+                }
+            } else {
+                alert('An unexpected error has occurred. Please try again.');
+            }
+
         })
     }
 

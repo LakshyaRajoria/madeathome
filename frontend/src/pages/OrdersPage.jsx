@@ -62,7 +62,14 @@ const OrdersPage = () => {
             <h2 className='text-2xl my-4'>Orders for My Shop</h2>
             <table className='w-full border-separate border-spacing-2'>
                 <thead>
-                    {/* Same table headers as above */}
+                <tr>
+                        <th className='border border-slate-600 rounded-md'>Time Ordered</th>
+                        <th className='border border-slate-600 rounded-md'>Store Ordered From</th>
+                        <th className='border border-slate-600 rounded-md'>Cuisine</th>
+                        <th className='border border-slate-600 rounded-md'>Category</th>
+                        <th className='border border-slate-600 rounded-md'>Name</th>
+                        <th className='border border-slate-600 rounded-md'>Quantity</th>
+                    </tr>
                 </thead>
                 <tbody>
                     {flattenedStoreOrderItems.map((item, index) => renderOrderRow(item, index))}

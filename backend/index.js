@@ -125,7 +125,11 @@ app.post('/shopCreation', async (req, res) => {
 
         } catch (e) {
             console.log(e.message); 
+            if (e.name === 'ValidationError') {
+                res.status(400).send({ success: false, message: e.message });
+            } else { 
             res.status(500).send({message: e.message}); 
+        }
     }
 })
 
