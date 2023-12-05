@@ -19,7 +19,7 @@ const HomePage = () => {
 
     const handleLogout = async () => {
         try {
-            await axios.get('http://localhost:3000/logout', { withCredentials: true });
+            await axios.get('https://madeathome-backend2.onrender.com/logout', { withCredentials: true });
             setIsAuthenticated(false); // Update state to reflect that user is logged out
             navigate('/'); // Redirect to login page after logout
         } catch (error) {
@@ -31,7 +31,7 @@ const HomePage = () => {
     useEffect(() => {
         // Check if the user is authenticated
         
-        axios.get('http://localhost:3000/authenticate', { withCredentials: true })
+        axios.get('https://madeathome-backend2.onrender.com/authenticate', { withCredentials: true })
             .then(response => {
                 if (response.data.msg === 'authenticated') {
                     console.log("user is authenticated tho")
@@ -46,7 +46,7 @@ const HomePage = () => {
             });
 
         // Fetch shop details
-        axios.get(`http://localhost:3000/myShopDetails`)
+        axios.get(`https://madeathome-backend2.onrender.com/myShopDetails`)
             .then(response => {
                 setShops(response.data.data);
             })
