@@ -353,7 +353,6 @@ app.get('/checkStore/:info', async (req, res) => {
             const info = req.params.info; // holds the shopName
             const user = await shopModel.find({username: req.session.username, shopName: info})
 
-            console.log("the result we are looking for is here4", user, user===[])
             const isArrayEmpty = (arr) => Array.isArray(arr) && arr.length === 0;
             if (isArrayEmpty(user)) {
                 // User not found
