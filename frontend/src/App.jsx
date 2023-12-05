@@ -8,6 +8,7 @@ import ShowMenu from './pages/ShowMenu'
 import ShowShops from './pages/ShowShops'
 import CreateMenu from './pages/CreateMenu'
 import ShowMyShop from './pages/ShowMyShop'
+import OrdersPage from './pages/OrdersPage'
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
       <Route path='/register' element={<CreateAccount />}/>
       <Route path='/login' element={<LoginPage />}/>
       <Route path='/myShop' element={<ShowShops />}/>
+      <Route path='/orders' element={<OrdersPage />}/>
       <Route path='/menu-details' element={<ShowMenu />}/>
       <Route path='/create-menu/:shopName' element={<CreateMenu />}/>
       <Route path='/shops/:shopName' element={<ShowMyShop />}/>

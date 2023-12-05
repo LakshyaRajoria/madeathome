@@ -310,6 +310,38 @@ app.post('/api/submit-order', async (req, res) => {
     }
 });
 
+app.get('/myOrders', async (req, res) => {
+
+    try {
+
+        // first fetching the store name that i create
+        let myShopName = await shopModel.find({ username: req.session.username})
+        console.log("this is my myShopName", myShopName[0].shopName)
+        myShopName = myShopName[0].shopName
+
+        // fetching orders that i might have placed (for other stores)
+        const ordersIPlaced = await Order.find({ userId: req.session.userId, shopName: { $ne: myShopName }});
+        console.log("the orders that i placed are", ordersIPlaced)
+
+        // fetching the others others have placed for my store 
+       
+        const shopOrders = await Order.find({ shopName: myShopName});
+        console.log("this are my shop orders", shopOrders)
+
+        return res.status(200).json({
+            myPlacedOrders: ordersIPlaced,
+            myShopOrders: shopOrders
+        });
+
+
+
+    } catch (error) {
+        console.error('Error fetching orders:', error);
+        res.status(500).send('An error occurred while fetching orders.');
+    }
+
+})
+
 // Checking to see if logged in user has made a store whose menu they are trying to update 
 app.get('/checkStore/:info', async (req, res) => {
     if (req.session.username) {

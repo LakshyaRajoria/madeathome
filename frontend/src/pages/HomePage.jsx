@@ -81,6 +81,13 @@ const HomePage = () => {
                     </div>
                     <li><a href="#create-account" className="text-white text-custom-size font-semibold">Made @ Home</a></li>
                     <div className="flex space-x-4"> 
+                        
+                    {isAuthenticated ? (
+                        <Link to="/orders" className="inline-block bg-white text-gray-800 font-semibold py-3 px-6 rounded-full hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 shadow-lg">
+                            See My Orders
+                        </Link>) : (<p></p>)}
+
+
                         {isAuthenticated ? (
                             
                             <li>
@@ -91,7 +98,7 @@ const HomePage = () => {
                                 {/* <a href="/logout" className="inline-block bg-white text-gray-800 font-semibold py-3 px-6 rounded-full hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 shadow-lg">
                                     Log Out
                                 </a> */}
-
+                            
                             </li>
 
                         ) : (
@@ -163,11 +170,6 @@ const HomePage = () => {
 
                             </div>
 
-                            <div className="px-6 py-4">
-                                <Link to="/menu-details" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                                    Visit All Shops
-                                </Link>
-                            </div>
 
                             {/* <div className="px-6 pt-4 pb-2"> */}
                                 {/* <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"> */}
