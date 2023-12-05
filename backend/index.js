@@ -7,7 +7,7 @@
 import express from 'express'; 
 import { PORT, mongoDBURL, SESSION_SECRET, NODE_ENV} from './config.js'; 
 import mongoose from 'mongoose';
-import MongoStore from '/opt/render/project/src/node_modules/connect-mongo';
+import MongoStore from 'connect-mongo';
 import bcrypt from 'bcrypt';
 import { MenuItem } from './models/menuItems.js'; 
 import { shopModel } from './models/shopModel.js'; 
