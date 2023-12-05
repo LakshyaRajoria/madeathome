@@ -42,12 +42,12 @@ const CreateShop = () => {
             email,
             phone
         }
-        axios.post('http://localhost:3000/shopCreation', data) 
+        axios.post('http://localhost:3000/shopCreation', data, { withCredentials: true }) 
         .then(() => {
             navigate('/');
         })
         .catch((e) => {
-            alert('An error has happened. Check Console'); 
+            alert('An error has happened. Check to make sure you are not making more than one store'); 
         })
     }
 
@@ -55,12 +55,7 @@ const CreateShop = () => {
         <div className='p-4'>
             <h1 className='text-3xl my-4'>Create Your Shop</h1>
             <div className='flex flex-col border-2 border-sky-400 rounded-xl w-[600px] p-4 mx-auto'>
-                <div className='my-4'>
-                    <label className='text-xl mr-4 text-gray-500'> Username </label>
-                    <input type='text' value={username} onChange={(e) => setUsername(e.target.value)} className = 'border-2 border-gray-500 px-4 py-2 w-full'
-                    />
-                </div>
-
+            
 
                 <div className='my-4'>
                     <label className='text-xl mr-4 text-gray-500'> Shop Name </label>

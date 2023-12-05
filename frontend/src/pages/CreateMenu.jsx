@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
 
 const CreateMenu = () => {
+    const { shopName } = useParams();
     const [cuisine, setCuisine] = useState('');
     const [category, setCategory] =  useState('');
     const [name, setName] =  useState('');
@@ -10,15 +12,39 @@ const CreateMenu = () => {
     const [price, setPrice] =  useState('');
     const navigate = useNavigate();
 
+    const showAlertAndRedirect = (message, path) => {
+        alert(message);
+        navigate(path); 
+    };
+
+    const handleLoad = async () => {
+        try {
+            const auth = await axios.get('http://localhost:3000/authenticate', { withCredentials: true });
+            console.log("we are on create menu page")
+            if (auth.data.msg === 'authenticated') {
+                console.log('authenticated');
+            } else {
+                console.log('not authenticated');
+                showAlertAndRedirect("You can't access this page without logging in ", "/");
+            }
+        } catch (error) {
+            console.error('Error checking authentication', error);
+        }
+    };
+
+
+    handleLoad(); 
+
     const handleSaveMenuItem = () => {
         const data = {
+            shopName,
             cuisine,
             category,
             name,
             description,
             price
         }
-        axios.post('http://localhost:3000/menu', data) 
+        axios.post(`http://localhost:3000/menu/${shopName}`, data, { withCredentials: true }) 
         .then(() => {
             navigate('/');
         })

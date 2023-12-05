@@ -13,6 +13,7 @@ const ShowMyShop = () => {
     const [error, setError] = useState(null);
     const [quantities, setQuantities] = useState({});
     const navigate = useNavigate();
+    const [userExists, setUserExists] = useState(false);
 
 
     const showAlertAndRedirect = (message, path) => {
@@ -43,11 +44,26 @@ const ShowMyShop = () => {
         const fetchData = async () => {
             setLoading(true);
             try {
-                const shopResponse = await axios.get(`http://localhost:3000/shops/${shopName}`);
+
+                // checking for authentication 
+                const authResponse = await axios.get('http://localhost:3000/authenticate', { withCredentials: true });
+                if (authResponse.data.msg !== 'authenticated') {
+                    console.log('not authenticated');
+                    alert("You can't access this page without logging in.");
+                    navigate('/');
+                }
+
+                // checking to see if logged in user is on the one who made this store 
+                const userResponse = await axios.get(`http://localhost:3000/checkStore/${shopName}`, { withCredentials: true });
+                setUserExists(userResponse.data.exists);
+                console.log("from the database side the storage is", userResponse.data.exists, shopName)
+
+                // Fetch shop and menu data
+                const shopResponse = await axios.get(`http://localhost:3000/shops/${shopName}`,  { withCredentials: true });
                 setShopData(shopResponse.data.data);
-    
-                const menuResponse = await axios.get(`http://localhost:3000/menu/${shopName}`);
+                const menuResponse = await axios.get(`http://localhost:3000/menu/${shopName}`,  { withCredentials: true });
                 setMenuData(menuResponse.data.data);
+
             } catch (err) {
                 console.error("Error fetching data:", err);
                 setError('Error fetching data');
@@ -57,7 +73,7 @@ const ShowMyShop = () => {
         };
     
         fetchData();
-    }, [shopName]);
+    }, [shopName, navigate]);
     
     if (loading) {
         return <div>Loading...</div>;
@@ -117,8 +133,10 @@ const ShowMyShop = () => {
                 </ul>
             </nav>
 
+           
             <div className="shadow-md" style={{ textAlign: 'left', padding: '20px' }}>
                 <h1 className="text-3xl">{shopName}</h1>
+
                 <p class="text-gray-500">
                     {shopData.description}
                 </p>
@@ -129,6 +147,20 @@ const ShowMyShop = () => {
                     {shopData.phone}
                 </p>
             </div>
+
+            <div className="flex justify-end"> {/* This container uses flexbox to align its children to the end (right) */}
+                {userExists ? (
+                    <div>
+
+                        <Link to={"/create-menu/" + shopName} className="inline-block bg-blue-100 text-gray-800 font-semibold py-3 px-6 rounded-full hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 shadow-lg">
+                            Create New Item on Menu
+                        </Link>
+                    </div>
+                ) : (
+                    <p>Login To Update Your Menu</p>
+                )}
+            </div>
+
 
             <form onSubmit={handleSubmit}>
                 <div className="shadow-md" style={{ textAlign: 'left', padding: '20px' }}>

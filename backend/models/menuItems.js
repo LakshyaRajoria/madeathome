@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const menuItemSchema = new mongoose.Schema({
-    shopName: {type: String, required: true, unique: true},     
+    shopName: {type: String, required: true},     
     category: {type: String, required: true}, 
     cuisine: {type: String, required: true}, 
     name: {type: String, required: true, unique: true}, 

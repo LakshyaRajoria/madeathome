@@ -51,7 +51,8 @@ app.use(session({
 
 
 // need to make sure to specify in the form that the values for categories, cuisine 
-app.post('/menu', async (req, res) => {
+app.post('/menu/:info', async (req, res) => {
+    const info = req.params.info;
     try {
         if (
         !req.body.category || 
@@ -65,6 +66,7 @@ app.post('/menu', async (req, res) => {
             });
         }
         const newItem = {
+            shopName: info, 
             category: req.body.category,
             cuisine: req.body.cuisine,
             name: req.body.name,
@@ -98,8 +100,7 @@ app.get('/menu', async (req, res) => {
 
 app.post('/shopCreation', async (req, res) => {
     try {
-        if (
-        !req.body.username || 
+        if ( 
         !req.body.shopName  || 
         !req.body.description     ||
         !req.body.email ||
@@ -109,8 +110,11 @@ app.post('/shopCreation', async (req, res) => {
                 message: 'Send all the the required fields',
             });
         }
+
+
+
         const shopItem = {
-            username: req.body.username,
+            username: req.session.username,
             shopName: req.body.shopName,
             description: req.body.description,
             email: req.body.email,
@@ -236,42 +240,33 @@ app.post('/login', async (req, res) => {
         res.status(500).send('We have an error');
     }
 }); 
+
+app.get('/logout', (req, res) => {
+    req.session.destroy(err => {
+      if (err) {
+
+        console.log("we have not been able to log out successfully")
+        return res.status(500).send('Could not log out');
+      }
+      console.log("we have logged out successfully")
+      res.send('Logged out successfully');
+    });
+  });
   
 
 app.get('/authenticate', async (req, res) => {
     console.log("we are on the authentication check page")
     console.log(req.session.userId)
     if (req.session.userId) {
-        const user = await User.find({username: req.session.userId})
+        // const user = await User.find({username: req.session.userId})
         res.json({msg: 'authenticated'})
     } else {
         res.send('false')
     }
 })
 
-// For authenicated pages routing 
-
-// function checkAuthenticated(req, res, next) {
-//     console.log("lets see if the user session saved here",req.session.userId)
-//     console.log("Session:", req.session);
-//     if (req.session && req.session.userId) {
-//         console.log("user is authenthicated")
-//       return next();
-//     }
-//     console.log("user is not authenticated")
-//     res.status(401).send('Not authenticated');
-//   }
 
 
-
-// // middleware to check for user authenthicated 
-// app.get('/create-shop', checkAuthenticated, (req, res) => {
-//     console.log("can't access this path until you create an account")
-//     res.send('This is a protected route');
-//   });
-
-
-  
 // visiting the store of a specific shop that is clicked on 
 app.get('/shops/:info', async (req, res) => {
     const info = req.params.info;
@@ -288,8 +283,6 @@ app.get('/shops/:info', async (req, res) => {
         console.log(e.message); 
         res.status(500).send({message: e.message}); 
     }
-    // Use the captured info as needed
-    // res.send(`You entered: ${info}`);
 });
 
 app.post('/api/submit-order', async (req, res) => {
@@ -317,6 +310,36 @@ app.post('/api/submit-order', async (req, res) => {
     }
 });
 
+// Checking to see if logged in user has made a store whose menu they are trying to update 
+app.get('/checkStore/:info', async (req, res) => {
+    if (req.session.username) {
+        try {
+            const info = req.params.info; // holds the shopName
+            const user = await shopModel.find({username: req.session.username, shopName: info})
+
+            console.log("the result we are looking for is here4", user, user===[])
+            const isArrayEmpty = (arr) => Array.isArray(arr) && arr.length === 0;
+            if (isArrayEmpty(user)) {
+                // User not found
+
+                console.log("this thing is false cmon on")
+                res.json({ exists: false});
+
+                
+            } else {
+                // User  found
+                res.json({ exists: true, user: user });
+            }
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Internal Server Error');
+        }
+    } else {
+        console.log("there is no username in session")
+        res.status(401).send('No username in session');
+    }
+});
+
 mongoose.connect(mongoDBURL)
     .then(() => {
         console.log('Connected to MongoDB');
@@ -327,15 +350,4 @@ mongoose.connect(mongoDBURL)
     .catch(err => console.error('Error connecting to MongoDB: ', err));
 
 
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-
-// const User = mongoose.model('User');
-
-
-// app.get('/', (req, res) => {
-//     console.log(request)
-//     return response.status(234).send("Welcome to MERN Stack Tuttorial")
-
-// })
 

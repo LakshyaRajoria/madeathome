@@ -24,10 +24,6 @@ const ShowMenu = () => {
         <div className='p-4'>
             <div className='flex justify-between items-center'>
                 <h1 className='text-3xl my-8'>Menu</h1>
-
-                <Link to="/create-menu" className="inline-block bg-yellow-100 text-gray-800 font-semibold py-3 px-6 rounded-full hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 shadow-lg">
-                    Create New Item on Menu
-                </Link>
             </div>
             <table className='w-full border-separate border-spacing-2'>
                 <thead>

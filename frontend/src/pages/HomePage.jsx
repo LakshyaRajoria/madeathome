@@ -6,7 +6,7 @@ import thaiCuisine from '../images/thai.jpg';
 import northIndian from '../images/northIndian.jpg';
 import southIndian from '../images/southIndian.jpg';
 import koreanCuisine from '../images/korean.jpg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 
@@ -14,17 +14,46 @@ import axios from 'axios';
 const HomePage = () => {
 
     const [shops, setShops] = useState([]); 
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        try {
+            await axios.get('http://localhost:3000/logout', { withCredentials: true });
+            setIsAuthenticated(false); // Update state to reflect that user is logged out
+            navigate('/'); // Redirect to login page after logout
+        } catch (error) {
+            console.error('Logout failed:', error);
+        }
+    };
+
+
     useEffect(() => {
+        // Check if the user is authenticated
+        
+        axios.get('http://localhost:3000/authenticate', { withCredentials: true })
+            .then(response => {
+                if (response.data.msg === 'authenticated') {
+                    console.log("user is authenticated tho")
+                    setIsAuthenticated(true);
+                } else {
+                    console.log("user is not authenticated")
+                    setIsAuthenticated(false);
+                }
+            })
+            .catch(error => {
+                console.error('Error during authentication check:', error);
+            });
+
+        // Fetch shop details
         axios.get(`http://localhost:3000/myShopDetails`)
-        .then((response) => {
-            setShops(response.data.data);
-            console.log("does this pull all my shops for the homepage")
-            console.log(response.data.data);
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-    }, [])
+            .then(response => {
+                setShops(response.data.data);
+            })
+            .catch(error => {
+                console.error('Error fetching shop details:', error);
+            });
+    }, []);
 
 
 
@@ -52,11 +81,31 @@ const HomePage = () => {
                     </div>
                     <li><a href="#create-account" className="text-white text-custom-size font-semibold">Made @ Home</a></li>
                     <div className="flex space-x-4"> 
-                        <li>
+                        {isAuthenticated ? (
+                            
+                            <li>
+
+                                <button onClick={handleLogout} className="inline-block bg-white text-gray-800 font-semibold py-3 px-6 rounded-full hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 shadow-lg">
+                                    Log Out
+                                </button>
+                                {/* <a href="/logout" className="inline-block bg-white text-gray-800 font-semibold py-3 px-6 rounded-full hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 shadow-lg">
+                                    Log Out
+                                </a> */}
+
+                            </li>
+
+                        ) : (
+
+                            
+
+                            <li>
                             <a href="/login" className="inline-block bg-white text-gray-800 font-semibold py-3 px-6 rounded-full hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 shadow-lg">
                                 Log In
                             </a>
-                        </li>
+                            </li>
+                        )}
+
+
                         <li>
                             <Link to="/register" className="inline-block bg-white text-gray-800 font-semibold py-3 px-6 rounded-full hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 shadow-lg">
                                 Create Account
