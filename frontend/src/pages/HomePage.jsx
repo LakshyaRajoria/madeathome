@@ -46,7 +46,7 @@ const HomePage = () => {
             });
 
         // Fetch shop details
-        axios.get(`https://madeathome-backend2.onrender.com/myShopDetails`)
+        axios.get(`https://madeathome-backend2.onrender.com/myShopDetails`, { withCredentials: true })
             .then(response => {
                 setShops(response.data.data);
             })
