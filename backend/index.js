@@ -5,8 +5,9 @@
 
 
 import express from 'express'; 
-import { PORT, mongoDBURL, SESSION_SECRET } from './config.js'; 
+import { PORT, mongoDBURL, SESSION_SECRET, NODE_ENV} from './config.js'; 
 import mongoose from 'mongoose';
+import MongoStore from 'connect-mongo';
 import bcrypt from 'bcrypt';
 import { MenuItem } from './models/menuItems.js'; 
 import { shopModel } from './models/shopModel.js'; 
@@ -33,7 +34,9 @@ app.use(cors({
 app.use(session({
     secret: SESSION_SECRET, 
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
+    store: MongoStore.create({ mongoUrl: mongoDBURL }),
+    cookie: { secure: NODE_ENV === 'production' }
   }));
 
   
@@ -185,6 +188,7 @@ app.post('/register', async (req, res) => {
     console.log("do we get to the register page?")
     try {
     //   const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    console.log("did we properly create user?")
       const user = new User({
         username: req.body.username,
         hashedPassword: req.body.password
@@ -202,12 +206,13 @@ app.post('/login', async (req, res) => {
     try {
         // Finding the user by their username 
 
-        const user = await User.findOne({username: req.body.username})
+        const user = await User.findOne({ username: req.body.username });
         
         // in case we didn't find any user with that username
         if (!user) {
             return res.status(401).send('Invalid Credentials')
         }
+
 
         // now checking the inputted password with the hashed one we have saved 
         const check = await bcrypt.compare(req.body.password, user.hashedPassword)
@@ -220,7 +225,10 @@ app.post('/login', async (req, res) => {
         // otherwise log the user in 
 
         req.session.userId = user._id
+        req.session.username= user.username
         console.log('the userId is', req.session.userId)
+        console.log('the username is', req.session.username)
+        console.log('the session info here is',req.session)
         console.log("signed in successfully")
         res.send("Logged In Successfully") 
     } catch(e) {
@@ -230,27 +238,37 @@ app.post('/login', async (req, res) => {
 }); 
   
 
+app.get('/authenticate', async (req, res) => {
+    console.log("we are on the authentication check page")
+    console.log(req.session.userId)
+    if (req.session.userId) {
+        const user = await User.find({username: req.session.userId})
+        res.json({msg: 'authenticated'})
+    } else {
+        res.send('false')
+    }
+})
 
 // For authenicated pages routing 
 
-function checkAuthenticated(req, res, next) {
-    console.log("lets see if the user session saved here",req.session.userId)
-    console.log("Session:", req.session);
-    if (req.session && req.session.userId) {
-        console.log("user is authenthicated")
-      return next();
-    }
-    console.log("user is not authenticated")
-    res.status(401).send('Not authenticated');
-  }
+// function checkAuthenticated(req, res, next) {
+//     console.log("lets see if the user session saved here",req.session.userId)
+//     console.log("Session:", req.session);
+//     if (req.session && req.session.userId) {
+//         console.log("user is authenthicated")
+//       return next();
+//     }
+//     console.log("user is not authenticated")
+//     res.status(401).send('Not authenticated');
+//   }
 
 
 
-// middleware to check for user authenthicated 
-app.get('/create-shop', checkAuthenticated, (req, res) => {
-    console.log("can't access this path until you create an account")
-    res.send('This is a protected route');
-  });
+// // middleware to check for user authenthicated 
+// app.get('/create-shop', checkAuthenticated, (req, res) => {
+//     console.log("can't access this path until you create an account")
+//     res.send('This is a protected route');
+//   });
 
 
   
@@ -278,11 +296,12 @@ app.post('/api/submit-order', async (req, res) => {
     try {
         console.log("we have indeed submitted an order")
         const { shopName, items } = req.body;
-        // const username = req.session.username; // Make sure the user is logged in
 
-        // Create a new Order with the username, shopName, and items
+        const userId = req.session.userId; 
+
+        // Create a new Order with the userId, shopName, and items
         const newOrder = new Order({
-            // username,
+            userId,
             shopName,
             items
         });

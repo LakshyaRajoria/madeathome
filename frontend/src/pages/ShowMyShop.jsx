@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 
 
 const ShowMyShop = () => {
@@ -11,7 +12,31 @@ const ShowMyShop = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [quantities, setQuantities] = useState({});
+    const navigate = useNavigate();
 
+
+    const showAlertAndRedirect = (message, path) => {
+        alert(message);
+        navigate(path); 
+    };
+
+    const handleLoad = async () => {
+        try {
+            const auth = await axios.get('http://localhost:3000/authenticate', { withCredentials: true });
+            console.log("we are on store menu page")
+            if (auth.data.msg === 'authenticated') {
+                console.log('authenticated');
+            } else {
+                console.log('not authenticated');
+                showAlertAndRedirect("You can't access this page without logging in ", "/");
+            }
+        } catch (error) {
+            console.error('Error checking authentication', error);
+        }
+    };
+
+
+    handleLoad(); 
     
 
     useEffect(() => {
@@ -69,7 +94,7 @@ const ShowMyShop = () => {
         try {
             const response = await axios.post('http://localhost:3000/api/submit-order', orderData, { withCredentials: true });
             console.log(response.data); // Handle the response
-            // Perform any additional actions on success, e.g., redirecting or showing a confirmation message
+            navigate('/');
           } catch (error) {
               console.log("we get an error here")
             console.error('Error submitting order:', error);

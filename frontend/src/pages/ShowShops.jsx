@@ -1,11 +1,37 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 
 
 const ShowShops = () => {
 
     const [shops, setShops] = useState([]); 
+    const navigate = useNavigate();
+
+    const showAlertAndRedirect = (message, path) => {
+        alert(message);
+        navigate(path); 
+    };
+
+    const handleLoad = async () => {
+        try {
+            const auth = await axios.get('http://localhost:3000/authenticate', { withCredentials: true });
+            console.log("we are on the see existing shops page")
+            if (auth.data.msg === 'authenticated') {
+                console.log('authenticated');
+            } else {
+                console.log('not authenticated');
+                showAlertAndRedirect("You can't access this page without logging in ", "/");
+            }
+        } catch (error) {
+            console.error('Error checking authentication', error);
+        }
+    };
+
+
+    handleLoad(); 
+
 
     useEffect(() => {
         axios.get(`http://localhost:3000/myShopDetails`)
@@ -23,7 +49,7 @@ const ShowShops = () => {
         
         <div className='p-4'>
             <div className='flex justify-between items-center'>
-                <h1 className='text-3xl my-8'>Admin Page: Existing Shops</h1>
+                <h1 className='text-3xl my-8'>Existing Shops</h1>
 
                 
 

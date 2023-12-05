@@ -11,6 +11,29 @@ const CreateShop = () => {
     const [phone, setPhone] =  useState('');
     const navigate = useNavigate();
 
+    const showAlertAndRedirect = (message, path) => {
+        alert(message);
+        navigate(path); 
+    };
+
+    const handleLoad = async () => {
+        try {
+            const auth = await axios.get('http://localhost:3000/authenticate', { withCredentials: true });
+            console.log("the auth result is: ", auth)
+            if (auth.data.msg === 'authenticated') {
+                console.log('authenticated');
+            } else {
+                console.log('not authenticated');
+                showAlertAndRedirect("You can't access this page without logging in ", "/");
+            }
+        } catch (error) {
+            console.error('Error checking authentication', error);
+        }
+    };
+
+
+    handleLoad(); 
+
     const handleSaveShopItem = () => {
         const data = {
             username,

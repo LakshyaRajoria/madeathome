@@ -9,7 +9,7 @@ const orderItemSchema = new mongoose.Schema({
 });
 
 const orderSchema = new mongoose.Schema({
-    // username: { type: String, required: true },
+    userId: { type: String, required: true },
     shopName: { type: String, required: true },
     items: [orderItemSchema],
     placedAt: { type: Date, default: Date.now }
