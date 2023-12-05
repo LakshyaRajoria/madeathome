@@ -46,7 +46,7 @@ const ShowMyShop = () => {
             try {
 
                 // checking for authentication 
-                const authResponse = await axios.get('http://localhost:3000/authenticate', { withCredentials: true });
+                const authResponse = await axios.get('https://madeathome-backend2.onrender.com/authenticate', { withCredentials: true });
                 if (authResponse.data.msg !== 'authenticated') {
                     console.log('not authenticated');
                     alert("You can't access this page without logging in.");
@@ -54,14 +54,14 @@ const ShowMyShop = () => {
                 }
 
                 // checking to see if logged in user is on the one who made this store 
-                const userResponse = await axios.get(`http://localhost:3000/checkStore/${shopName}`, { withCredentials: true });
+                const userResponse = await axios.get(`https://madeathome-backend2.onrender.com/checkStore/${shopName}`, { withCredentials: true });
                 setUserExists(userResponse.data.exists);
                 console.log("from the database side the storage is", userResponse.data.exists, shopName)
 
                 // Fetch shop and menu data
-                const shopResponse = await axios.get(`http://localhost:3000/shops/${shopName}`,  { withCredentials: true });
+                const shopResponse = await axios.get(`https://madeathome-backend2.onrender.com/shops/${shopName}`,  { withCredentials: true });
                 setShopData(shopResponse.data.data);
-                const menuResponse = await axios.get(`http://localhost:3000/menu/${shopName}`,  { withCredentials: true });
+                const menuResponse = await axios.get(`https://madeathome-backend2.onrender.com/menu/${shopName}`,  { withCredentials: true });
                 setMenuData(menuResponse.data.data);
 
             } catch (err) {
