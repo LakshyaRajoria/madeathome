@@ -11,7 +11,7 @@ function LoginPage() {
     event.preventDefault();
     try {
       // Replace with your actual login endpoint
-      const response = await axios.post('http://localhost:3000/login', { username, password }, { withCredentials: true });
+      const response = await axios.post('https://madeathome-backend2.onrender.com/login', { username, password }, { withCredentials: true });
       console.log('Login successful:', response.data);
       // Redirect user after successful login
       navigate('/'); 
