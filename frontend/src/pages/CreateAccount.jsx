@@ -10,7 +10,7 @@ function CreateAccount() {
     const handleSubmit = async (event) => {
       event.preventDefault();
       try {
-        const response = await axios.post('http://localhost:3000/register', { username, password });
+        const response = await axios.post('https://madeathome-backend2.onrender.com/register', { username, password });
         console.log("have we got anything printed for register")
         console.log(response.data);
         navigate('/'); 
