@@ -18,7 +18,7 @@ const CreateShop = () => {
 
     const handleLoad = async () => {
         try {
-            const auth = await axios.get('http://localhost:3000/authenticate', { withCredentials: true });
+            const auth = await axios.get('https://madeathome-backend2.onrender.com/authenticate', { withCredentials: true });
             console.log("the auth result is: ", auth)
             if (auth.data.msg === 'authenticated') {
                 console.log('authenticated');
@@ -43,7 +43,7 @@ const CreateShop = () => {
             email,
             phone
         }
-        axios.post('http://localhost:3000/shopCreation', data, { withCredentials: true }) 
+        axios.post('https://madeathome-backend2.onrender.com/shopCreation', data, { withCredentials: true }) 
         .then(() => {
             navigate('/');
         })
