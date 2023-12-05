@@ -8,7 +8,7 @@ const ShowMenu = () => {
     const [items, setItem] = useState([]); 
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/menu`)
+        axios.get(`https://madeathome-backend2.onrender.com/menu`)
         .then((response) => {
             setItem(response.data.data);
             console.log("hmmst does this work")
