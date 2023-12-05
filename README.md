@@ -2,7 +2,7 @@ The content below is an example project proposal / requirements document. Replac
 
 (__TODO__: your project name)
 
-# Shoppy Shoperson 
+# Made @ Home 
 
 ## Overview
 
@@ -13,14 +13,14 @@ Bored of the same rotation of 5 fast-food places? College student? Aching for me
 
 Made @ Home is a web app that will allow users to pick the cuisine they would like to order food in, but the twist is that rather than it being prepared at a restaurant, ghost kitchen or some other commoditized location, it will be prepared by home-cooks! Find the delicacies you can only get at your home away from home. Select from a wide array of homecooks that specialize in that flavor you love but can’t find in restaurant. 
 
-Tjhe web app will incorporate review system for the homecooks, optionality for customers to describe exactly the recipes they would like made by homecooks and give homecooks a platform to grow others’ appreciation of their skills in a cost-effective manner! 
+The web app will incorporate review system for the homecooks, optionality for customers to describe exactly the recipes they would like made by homecooks and give homecooks a platform to grow others’ appreciation of their skills in a cost-effective manner! 
 
 
 ## Data Model
 
 (__TODO__: a description of your application's data and their relationships to each other) 
 
-The application will store Users, Cart and Menu
+The application will store Users, Orders, Menus and Shops
 
 (__TODO__: sample documents)
 
