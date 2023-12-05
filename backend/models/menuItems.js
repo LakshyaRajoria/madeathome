@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const menuItemSchema = new mongoose.Schema({
+    shopName: {type: String, required: true, unique: true},     
     category: {type: String, required: true}, 
     cuisine: {type: String, required: true}, 
     name: {type: String, required: true, unique: true}, 
@@ -10,5 +11,5 @@ const menuItemSchema = new mongoose.Schema({
 
 const MenuItem = mongoose.model('MenuItem', menuItemSchema);
 
-export {menuItemSchema, MenuItem}
+export {menuItemSchema, MenuItem} 
 

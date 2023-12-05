@@ -1,5 +1,5 @@
 import React from 'react';
-import indianCuisine from '../images/indian.jpg';
+import indianCuisine from '../images/Indian.jpg';
 import chineseCuisine from '../images/chinese.jpg';
 import italianCuisine from '../images/italian.jpg';
 import thaiCuisine from '../images/thai.jpg';
@@ -11,6 +11,8 @@ import { Link } from 'react-router-dom';
 
 
 const HomePage = () => {
+
+    
     return (
         <div className="font-sans bg-gradient-to-b from-customLight to-customDark">
             <nav className="shadow-md">
@@ -27,13 +29,25 @@ const HomePage = () => {
                                 Our Home Cooks
                             </a>
                         </li>
+                        <li>
+                            <Link to="/myShop" className="inline-block bg-white text-gray-800 font-semibold py-3 px-6 rounded-full hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 shadow-lg">
+                                See Shops List
+                            </Link>
+                        </li>
                     </div>
                     <li><a href="#create-account" className="text-white text-custom-size font-semibold">Made @ Home</a></li>
-                    <li>
-                        <a href="#store-section" className="inline-block bg-white text-gray-800 font-semibold py-3 px-6 rounded-full hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 shadow-lg">
-                            Create Account
-                        </a>
-                    </li>
+                    <div className="flex space-x-4"> 
+                        <li>
+                            <a href="/login" className="inline-block bg-white text-gray-800 font-semibold py-3 px-6 rounded-full hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 shadow-lg">
+                                Log In
+                            </a>
+                        </li>
+                        <li>
+                            <Link to="/register" className="inline-block bg-white text-gray-800 font-semibold py-3 px-6 rounded-full hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 shadow-lg">
+                                Create Account
+                            </Link>
+                        </li>
+                    </div>
                     {/* More nav links */}
                 </ul>
             </nav>

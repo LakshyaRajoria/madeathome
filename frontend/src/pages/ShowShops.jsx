@@ -23,7 +23,7 @@ const ShowShops = () => {
         
         <div className='p-4'>
             <div className='flex justify-between items-center'>
-                <h1 className='text-3xl my-8'>Existing Shops</h1>
+                <h1 className='text-3xl my-8'>Admin Page: Existing Shops</h1>
 
                 
 
@@ -37,6 +37,7 @@ const ShowShops = () => {
                         <th className='border border-slate-600 rounded-md'>Description</th>
                         <th className='border border-slate-600 rounded-md'>Email</th>
                         <th className='border border-slate-600 rounded-md'>Phone Number</th>
+                        <th className='border border-slate-600 rounded-md'>Vist Store</th>
 
                     </tr>
                 </thead>
@@ -68,6 +69,13 @@ const ShowShops = () => {
                             <td className='border border-slate-700 rounded-md text-center'> 
                                 {shop.phone}
                             </td>
+
+                            <td className='border border-slate-700 rounded-md text-center'> 
+                                <Link to={"/shops/" + shop.shopName} className="text-blue-600 underline hover:text-blue-800">
+                                    See Shops List
+                                </Link>
+                            </td>
+
                         </tr>
                     ))}
                 </tbody>
