@@ -10,7 +10,7 @@ const OrdersPage = () => {
 
 
     useEffect(() => {
-        axios.get('http://localhost:3000/myOrders', { withCredentials: true })
+        axios.get('https://madeathome-backend2.onrender.com/myOrders', { withCredentials: true })
         .then((response) => {
             setMyOrders(response.data.myPlacedOrders);
             setShopOrders(response.data.myShopOrders);
