@@ -36,7 +36,11 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({ mongoUrl: mongoDBURL }),
-    cookie: { secure: NODE_ENV === 'production' }
+    cookie: { 
+        secure: NODE_ENV === 'production', // true if in production
+        httpOnly: true,
+        sameSite: 'none' // important for cross-origin requests
+    }
   }));
 
   
