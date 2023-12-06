@@ -37,7 +37,7 @@ app.use(session({
     saveUninitialized: false,
     store: MongoStore.create({ mongoUrl: mongoDBURL }),
     cookie: { 
-        secure: false, // true if in production
+        secure: true, // true if in production
         httpOnly: true,
         sameSite: 'none' // important for cross-origin requests
     }
