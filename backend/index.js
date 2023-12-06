@@ -27,7 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 // app.use(cors());
 
 app.use(cors({
-    origin: 'https://madeathome11.onrender.com', // your frontend server's origin
+    origin: 'https://madeathome11.onrender.com/', // your frontend server's origin
     credentials: true // this allows session cookies to be sent with requests
 }));
 
