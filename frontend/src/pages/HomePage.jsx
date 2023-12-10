@@ -69,6 +69,11 @@ const HomePage = () => {
                             </Link>
                         </li>
                         <li>
+                            <Link to="/create-shop" className="inline-block bg-white text-gray-800 font-semibold py-3 px-6 rounded-full hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 shadow-lg">
+                                Create Store
+                            </Link>
+                        </li>
+                        <li>
                             <a href="#home-cooks-gallery" className="inline-block bg-white text-gray-800 font-semibold py-3 px-6 rounded-full hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 shadow-lg">
                                 Our Home Cooks
                             </a>
