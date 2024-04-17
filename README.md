@@ -63,8 +63,6 @@ Web Pages 2
 
 ## Site map
 
-(__TODO__: draw out a site map that shows how pages are related to each other)
-
 The Home Page will have links to that lead to pages like Getting License, which will detail to a user on how to get the proper certification to sell food from home and provide them with any relevant links. Other pages linked to from the homepage include My Shop, which will be specifically for the home cook to accesss so that they can see the orders people have placed, mark them as prepared, check their delivery status, check the history of their orders, edit their menu etc. there will also be another link on the Home Page that is Explore. This will allow you to see a page which has information on different homecooks, the reviews people have put of them, what they specialize in making, along with filtering functions based on cuisine, prices, location, reviews etc. On My Shop there will also be the Explore page again in case they want to order something themselves. 
 
 ## User Stories or Use Cases
