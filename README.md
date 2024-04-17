@@ -1,12 +1,6 @@
-The content below is an example project proposal / requirements document. Replace the text below the lines marked "__TODO__" with details specific to your project. Remove the "TODO" lines.
-
-(__TODO__: your project name)
-
 # Made @ Home 
 
 ## Overview
-
-(__TODO__: a brief one or two paragraph, high-level description of your project)
 
 
 Bored of the same rotation of 5 fast-food places? College student? Aching for meals that taste like home? That’s where Made @ Home comes in. 
@@ -18,11 +12,7 @@ The web app will incorporate review system for the homecooks, optionality for cu
 
 ## Data Model
 
-(__TODO__: a description of your application's data and their relationships to each other) 
-
 The application will store Users, Orders, Menus and Shops
-
-(__TODO__: sample documents)
 
 As can be seen some of the following models are connected by the username, homecook_id etc. 
 
@@ -42,7 +32,7 @@ An Example User's order (their cart):
 {
 	username: "shannonshopper" // connecting a user and their order 
 
-  homeCook_id: [UUIDs] // can be like a UUID not sure, some identification to map the homecook they are ordering from. Array because maybe they order from multiple locations 
+  homeCook_id: [UUIDs] // can be like a UUID, some identification to map the homecook they are ordering from. Array because maybe they order from multiple locations 
 
 	foodItems: [ids] // each food item on a homecook's menu can be connected to an id that we store in this array. this will likely be a 2D array to account for ordering from mutliple homecooks and as such multiple menus. 
 }
@@ -61,13 +51,7 @@ An Example Menu: Storing the things that a Homecook has on their menu in a datab
 
 ```
 
-## [Link to Commented First Draft Schema](db.mjs) 
-
-(__TODO__: create a first draft of your Schemas in db.mjs and link to it)
-
 ## Wireframes
-
-(__TODO__: wireframes for all of the pages on your site; they can be as simple as photos of drawings or you can use a tool like Balsamiq, Omnigraffle, etc.)
 
 Web Pages 1 
 
@@ -85,31 +69,9 @@ The Home Page will have links to that lead to pages like Getting License, which 
 
 ## User Stories or Use Cases
 
-(__TODO__: write out how your application will be used through [user stories](http://en.wikipedia.org/wiki/User_story#Format) and / or [use cases](https://en.wikipedia.org/wiki/Use_case))
-
 1. as non-registered user, I can register a new account with the site and even specify if I want to be a home cook on the platform too (you will be able to create a home cook credential later as well).  
 2. as a non-registered user, I can still explore and order food from the website. 
 3. as a home cook, I can have My Store, which will allow me to make a menu, take orders from people, track them, and do bookkeeping. 
 4. As a registered user, I can create a home cook credential.
 5. As a registered user, I can see a list of all my past orders 
-
-
-## Research Topics
-
-(__TODO__: the research topics that you're planning on working on along with their point values... and the total points of research topics listed)
-
-I am planning on using React.js (6 points) as my frontend framework which is a JavaScript library for building interactive and dynamic user interfaces (UIs). I am planning on using this because I have some experience working with it, and I like the component-based architecture that it has. This allows me to have a self-contained reusable piece of code on how different parts of the user interface should appear and behave. I am also planning on using client side form validation (3 points) using custom JavaScript or JavaScript *library*. Specifically, I might use Formik which is designed to work well with React forms like in the display of errors or custom validation logic. Finally, I am thinking of using Bootstrap (2 points) to have a defined theme for my website across my webpages. This will allow my webpage to be more unique and friendly to users. 
-
-
-
-## [Link to Initial Main Project File](app.mjs) 
-
-(__TODO__: create a skeleton Express application with a package.json, app.mjs, views folder, etc. ... and link to your initial app.mjs)
-
-## Annotations / References Used
-
-(__TODO__: list any tutorials/references/etc. that you've based your code off of)
-
-1. [passport.js authentication docs](http://passportjs.org/docs) - (add link to source code that was based on this)
-2. [tutorial on vue.js](https://vuejs.org/v2/guide/) - (add link to source code that was based on this)
 
